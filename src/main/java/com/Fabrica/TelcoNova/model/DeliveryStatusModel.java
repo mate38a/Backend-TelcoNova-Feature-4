@@ -19,6 +19,9 @@ public class DeliveryStatusModel {
 
     public DeliveryStatusModel() {
     }
+    public DeliveryStatusModel( String name) {
+        this.name = name;
+    }
     public DeliveryStatusModel(Long id, String name) {
         this.id = id;
         this.name = name;

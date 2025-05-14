@@ -1,3 +1,104 @@
-type Query {
-  hello: String
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  phone: String!
+  role: Role
+  address: String
+  createdAt: String
 }
+
+type Event {
+  id: ID!
+  type: EventType!
+  description: String
+  date: String!
+}
+
+enum EventType {
+  INFO
+  WARNING
+  ERROR
+}
+
+type Role {
+  id: ID!
+  name: String!
+}
+
+type Alert {
+  id: ID!
+  event: Event!
+  deliveryMethod: DeliveryMethod!
+  message: String!
+  active: Boolean!
+  createdAt: String!
+}
+
+enum DeliveryMethod {
+  EMAIL
+  SMS
+  PUSH
+}
+
+type Notification {
+  id: ID!
+  alert: Alert!
+  scheduledDate: String!
+  status: DeliveryStatus!
+  createdAt: String!
+}
+
+enum DeliveryStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+input AlertFilter {
+  active: Boolean
+  eventType: EventType
+  deliveryMethod: DeliveryMethod
+}
+
+input CreateAlertInput {
+  eventId: ID!
+  deliveryMethodId: ID!
+  message: String!
+  active: Boolean = true
+}
+
+input UpdateAlertInput {
+  deliveryMethodId: ID
+  message: String
+  active: Boolean
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  phone: String!
+  roleId: ID!
+  address: String
+}
+
+input CreateRoleInput {
+  name: String!
+}
+
+type Query {
+  getUser(id: ID!): User
+  getAllUsers: [User!]!
+  getUserByEmail(email: String!): User
+  getAlerts(filter: AlertFilter): [Alert!]!
+  getAlertById(id: ID!): Alert!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  createAlert(input: CreateAlertInput!): Alert!
+  updateAlert(id: ID!, input: UpdateAlertInput!): Boolean!
+  deleteAlert(id: ID!): Boolean!
+  createRole(input: CreateRoleInput!): Role!  
+}
+

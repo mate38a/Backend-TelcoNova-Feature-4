@@ -21,7 +21,10 @@ public class EventTypeModel {
     
     public EventTypeModel() {
     }
-
+    public EventTypeModel( String name, Integer priorityLevel) {
+        this.name = name;
+        this.priorityLevel = priorityLevel;
+    }
     public EventTypeModel(Long id, String name, Integer priorityLevel) {
         this.id = id;
         this.name = name;

@@ -20,6 +20,9 @@ public class DeliveryMethodModel {
 
     public DeliveryMethodModel() {
     }
+    public DeliveryMethodModel( String name) {
+        this.name = name;
+    }
     public DeliveryMethodModel(Long id, String name) {
         this.id = id;
         this.name = name;
