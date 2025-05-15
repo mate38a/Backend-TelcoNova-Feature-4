@@ -7,7 +7,6 @@ import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
-import com.Fabrica.TelcoNova.dto.CreateRoleInput;
 import com.Fabrica.TelcoNova.model.RoleModel;
 import com.Fabrica.TelcoNova.service.RoleService;
 
@@ -25,7 +24,7 @@ public class RoleController {
     }
 
     @MutationMapping
-    public RoleModel createRole(@Argument CreateRoleInput input) {
-        return roleService.createRole(input);
+    public RoleModel createRole(@Argument String name) {
+        return roleService.createRole(name);
     }
 }

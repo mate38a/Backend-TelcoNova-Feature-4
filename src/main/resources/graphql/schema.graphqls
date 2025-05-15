@@ -1,6 +1,7 @@
 # --------------------------
-# Enums (Si los usas como tipos, reemplázalos por tipos)
+# Tipos Principales
 # --------------------------
+
 type EventType {
   id: ID!
   name: String!
@@ -17,9 +18,6 @@ type DeliveryStatus {
   name: String!
 }
 
-# --------------------------
-# Tipos Principales
-# --------------------------
 type Role {
   id: ID!
   name: String!
@@ -37,9 +35,9 @@ type User {
 
 type Event {
   id: ID!
-  type: EventType!
+  eventType: EventType!
   description: String
-  date: String!
+  eventDate: String!
 }
 
 type Alert {
@@ -59,8 +57,13 @@ type Notification {
   createdAt: String!
 }
 
+type GroupModel {
+  id:ID!
+  name: String!
+  users: [User!]!
+}
 # --------------------------
-# Inputs (Definidos una sola vez)
+# Inputs 
 # --------------------------
 input CreateUserInput {
   name: String!
@@ -86,21 +89,38 @@ input UpdateAlertInput {
   MessageTemplate: String
   active: Boolean
 }
+input CreateGroupInput {
+  name: String!
+  users: [ID!]!
+}
 
+type GroupWithUsers {
+  id: ID!
+  name: String!
+  users: [User!]!
+}
 # --------------------------
-# Queries y Mutations (Únicas definiciones)
+# Queries y Mutations 
 # --------------------------
 type Query {
   getUser(id: ID!): User
   getAlerts: [Alert]
   getAlertById(id: ID!): Alert
   getRoles: [Role]
+  getAllGroups: [GroupModel]
+  getGroupById(id: ID!): GroupModel
+  getAllGroupsWithUsers: [GroupWithUsers]
+  getEvents:[Event]
 }
 
 type Mutation {
+  
   createUser(input: CreateUserInput!): User!
   createAlert(input: CreateAlertInput!): Alert!
   updateAlert(id: ID!, input: UpdateAlertInput!): Boolean!
   deleteAlert(id: ID!): Boolean!
-  createRole(input: CreateRoleInput!): Role!
+  createRole(name: String): Role!
+  createGroup(input: CreateGroupInput!): GroupModel!
+  addUserToGroup(groupId: ID!, userId: ID!): GroupModel!
+
 }
