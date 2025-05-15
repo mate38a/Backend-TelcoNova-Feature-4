@@ -1,3 +1,30 @@
+# --------------------------
+# Enums (Si los usas como tipos, reemplázalos por tipos)
+# --------------------------
+type EventType {
+  id: ID!
+  name: String!
+  priorityLevel: Int!
+}
+
+type DeliveryMethod {
+  id: ID!
+  name: String!
+}
+
+type DeliveryStatus {
+  id: ID!
+  name: String!
+}
+
+# --------------------------
+# Tipos Principales
+# --------------------------
+type Role {
+  id: ID!
+  name: String!
+}
+
 type User {
   id: ID!
   name: String!
@@ -15,30 +42,13 @@ type Event {
   date: String!
 }
 
-enum EventType {
-  INFO
-  WARNING
-  ERROR
-}
-
-type Role {
-  id: ID!
-  name: String!
-}
-
 type Alert {
   id: ID!
   event: Event!
   deliveryMethod: DeliveryMethod!
-  message: String!
+  MessageTemplate: String
   active: Boolean!
   createdAt: String!
-}
-
-enum DeliveryMethod {
-  EMAIL
-  SMS
-  PUSH
 }
 
 type Notification {
@@ -49,31 +59,9 @@ type Notification {
   createdAt: String!
 }
 
-enum DeliveryStatus {
-  PENDING
-  SENT
-  FAILED
-}
-
-input AlertFilter {
-  active: Boolean
-  eventType: EventType
-  deliveryMethod: DeliveryMethod
-}
-
-input CreateAlertInput {
-  eventId: ID!
-  deliveryMethodId: ID!
-  message: String!
-  active: Boolean = true
-}
-
-input UpdateAlertInput {
-  deliveryMethodId: ID
-  message: String
-  active: Boolean
-}
-
+# --------------------------
+# Inputs (Definidos una sola vez)
+# --------------------------
 input CreateUserInput {
   name: String!
   email: String!
@@ -86,12 +74,27 @@ input CreateRoleInput {
   name: String!
 }
 
+input CreateAlertInput {
+  eventId: ID!
+  deliveryMethodId: ID!
+  MessageTemplate: String!
+  active: Boolean = true
+}
+
+input UpdateAlertInput {
+  deliveryMethodId: ID
+  MessageTemplate: String
+  active: Boolean
+}
+
+# --------------------------
+# Queries y Mutations (Únicas definiciones)
+# --------------------------
 type Query {
   getUser(id: ID!): User
-  getAllUsers: [User!]!
-  getUserByEmail(email: String!): User
-  getAlerts(filter: AlertFilter): [Alert!]!
-  getAlertById(id: ID!): Alert!
+  getAlerts: [Alert]
+  getAlertById(id: ID!): Alert
+  getRoles: [Role]
 }
 
 type Mutation {
@@ -99,6 +102,5 @@ type Mutation {
   createAlert(input: CreateAlertInput!): Alert!
   updateAlert(id: ID!, input: UpdateAlertInput!): Boolean!
   deleteAlert(id: ID!): Boolean!
-  createRole(input: CreateRoleInput!): Role!  
+  createRole(input: CreateRoleInput!): Role!
 }
-

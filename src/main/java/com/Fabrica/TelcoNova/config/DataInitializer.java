@@ -1,12 +1,24 @@
 package com.Fabrica.TelcoNova.config;
 
-import com.Fabrica.TelcoNova.model.*;
-import com.Fabrica.TelcoNova.repository.*;
-import jakarta.transaction.Transactional;
+import java.time.LocalDateTime;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import com.Fabrica.TelcoNova.model.DeliveryMethodModel;
+import com.Fabrica.TelcoNova.model.DeliveryStatusModel;
+import com.Fabrica.TelcoNova.model.EventModel;
+import com.Fabrica.TelcoNova.model.EventTypeModel;
+import com.Fabrica.TelcoNova.model.RoleModel;
+import com.Fabrica.TelcoNova.model.UserModel;
+import com.Fabrica.TelcoNova.repository.DeliveryMethodRepository;
+import com.Fabrica.TelcoNova.repository.DeliveryStatusRepository;
+import com.Fabrica.TelcoNova.repository.EventRepository;
+import com.Fabrica.TelcoNova.repository.EventTypeRepository;
+import com.Fabrica.TelcoNova.repository.RoleRepository;
+import com.Fabrica.TelcoNova.repository.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -35,8 +47,11 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
+        Boolean Fl= false;
+        if(Fl){
+
         initLookupTables();
-        initTestData();
+        initTestData();}
     }
 
     private void initLookupTables() {

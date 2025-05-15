@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @QueryMapping 
-    public UserModel me(@Argument Long id) {
+    public UserModel getUser(@Argument Long id) {
         return userService.getUserById(id);
     }
 
@@ -27,4 +27,6 @@ public class UserController {
     public UserModel createUser(@Argument CreateUserInput input) {
         return userService.createUser(input);
     }
+
+    
 }
